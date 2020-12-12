@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    ports:
+      - "9092:9092"
+
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=spring-starter
+      - POSTGRES_USER=spring-starter
+      - POSTGRES_PASSWORD=spring-starter
+    ports:
+      - "5432:5432"
